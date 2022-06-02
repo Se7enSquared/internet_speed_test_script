@@ -24,15 +24,13 @@ while 1:
     results_dict = s.results.dict()
     print(results_dict)
     print('Writing file... \'results.csv\'')
-    f = open('results.csv', 'a')
-
-    # Convert dl and ul data to string and drop insignificant digits
-    dl = str(results_dict['download'] // 1000000)
-    ul = str(results_dict['upload'] // 1000000)
-    f.writelines('\n' + date_time + "," + dl + "," + ul)
-    print('Closing file...')
-    f.close()
-    print('Iteration ' + str(iteration) + ' Sleeping 1 hour...')
+    with open('results.csv', 'a') as f:
+        # Convert dl and ul data to string and drop insignificant digits
+        dl = str(results_dict['download'] // 1000000)
+        ul = str(results_dict['upload'] // 1000000)
+        f.writelines('\n' + date_time + "," + dl + "," + ul)
+        print('Closing file...')
+    print(f'Iteration {iteration} Sleeping 1 hour...')
 
     dt = datetime.now() + timedelta(hours=1)
     dt = dt.replace(minute=10)
